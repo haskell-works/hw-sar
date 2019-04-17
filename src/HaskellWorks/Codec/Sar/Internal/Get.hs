@@ -29,7 +29,7 @@ maybeEntry = do
   case rawEntryType of
     RawEntryTypeChunk -> do
       sz <- BG.getWord64le
-      RawChunk <$> BG.getByteString (fromIntegral sz)
+      RawChunk <$> BG.getLazyByteString (fromIntegral sz)
     RawEntryTypeFile -> do
       sz <- BG.getWord64le
       RawFile . T.unpack . T.decodeUtf8  <$> BG.getByteString (fromIntegral sz)

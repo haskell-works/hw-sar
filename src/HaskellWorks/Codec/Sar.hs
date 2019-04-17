@@ -21,10 +21,12 @@ data Entry = Entry FilePath LBS.ByteString
   deriving (Eq, Show)
 
 packRawEntries :: [RawEntry] -> LBS.ByteString
-packRawEntries es = B.toLazyByteString $ "![SARFILE]" <> mconcat (fmap packRawEntry es)
+packRawEntries es = B.toLazyByteString $ mconcat (fmap packRawEntry es)
 
 unpackRawEntries :: LBS.ByteString -> [RawEntry]
 unpackRawEntries = go
-  where go lbs = case BG.runGetOrFail BG.maybeEntry lbs of
-          Right (rs, _, a       ) -> a:go rs
-          Left  (_ , _, message ) -> [RawError ("Parse error: " <> message)]
+  where go "" = []
+        go lbs = case BG.runGetOrFail BG.maybeEntry lbs of
+          Right (rs, _, RawError message) -> [RawError (message <> ": " <> show (LBS.take 8 lbs))]
+          Right (rs, _, a       )         -> a:go rs
+          Left  (_ , _, message )         -> [RawError ("Parse error: " <> message)]

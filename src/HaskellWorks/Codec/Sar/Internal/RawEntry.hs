@@ -3,7 +3,7 @@ module HaskellWorks.Codec.Sar.Internal.RawEntry
   , RawEntryType(..)
   ) where
 
-import qualified Data.ByteString as LBS
+import qualified Data.ByteString.Lazy as LBS
 
 data RawEntry
   = RawFile FilePath

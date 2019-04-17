@@ -1,4 +1,4 @@
-module HaskellWorks.Tar.IO
+module HaskellWorks.Codec.Sar.IO
   ( run
   ) where
 
