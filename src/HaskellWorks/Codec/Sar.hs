@@ -8,6 +8,7 @@ module HaskellWorks.Codec.Sar
   , entriesToRawEntries
   ) where
 
+import Control.Monad
 import Data.Word
 import HaskellWorks.Codec.Sar.Internal.Pack
 import HaskellWorks.Codec.Sar.Internal.RawEntry
@@ -20,6 +21,9 @@ import qualified Data.Text                                       as T
 import qualified Data.Text.Encoding                              as T
 import qualified HaskellWorks.Codec.Sar.Internal.ByteString.Lazy as LBS
 import qualified HaskellWorks.Codec.Sar.Internal.Get             as BG
+import qualified System.Directory                                as IO
+import qualified System.Directory.Internal                       as IO
+import qualified System.IO                                       as IO
 
 data Entry = Entry FilePath LBS.ByteString
   deriving (Eq, Show)

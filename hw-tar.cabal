@@ -31,10 +31,12 @@ library
   import:   base, config
           , binary
           , bytestring
+          , directory
           , text
   exposed-modules:        HaskellWorks.Codec.Sar
                           HaskellWorks.Codec.Sar.Internal.ByteString.Lazy
                           HaskellWorks.Codec.Sar.Internal.Get
+                          HaskellWorks.Codec.Sar.Internal.IO
                           HaskellWorks.Codec.Sar.Internal.Pack
                           HaskellWorks.Codec.Sar.Internal.RawEntry
   -- other-modules:
