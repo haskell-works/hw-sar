@@ -1,8 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module HaskellWorks.Codec.Sar
-  ( packRawEntries
+  ( Entry(..)
+  , packRawEntries
   , unpackRawEntries
+  , rawEntriesToEntries
+  , entriesToRawEntries
   ) where
 
 import Data.Word
@@ -26,6 +29,20 @@ entriesToRawEntries n es = go es []
   where go :: [Entry] -> [RawEntry] -> [RawEntry]
         go []                          = id
         go (Entry filename payload:es) = (RawFile filename:) <> foldMap ((:) . RawChunk) (LBS.chunkBy n payload) <> go es
+
+rawEntriesToEntries :: [RawEntry] -> [Entry]
+rawEntriesToEntries res = go res []
+  where go  :: [RawEntry]
+            -> [Entry] -> [Entry]
+        go (RawFile filename:res) = gogo filename mempty res
+        go (RawChunk payload:res) = error "Chunk without file"
+        go (RawError message:res) = error $ "ERROR: " <> message
+        go []                     = id
+
+        gogo :: FilePath -> B.Builder -> [RawEntry] -> [Entry] -> [Entry]
+        gogo filename  b (RawChunk payload:res)   =                                               gogo filename (b <> B.lazyByteString payload) res
+        gogo filename0 b (RawFile  filename1:res) = (Entry filename0 (B.toLazyByteString b):) <>  gogo filename1 mempty res
+        gogo filename  b []                       = (Entry filename  (B.toLazyByteString b):)
 
 packRawEntries :: [RawEntry] -> LBS.ByteString
 packRawEntries es = B.toLazyByteString $ mconcat (fmap packRawEntry es)
