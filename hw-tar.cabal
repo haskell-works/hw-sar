@@ -33,6 +33,7 @@ library
           , bytestring
           , text
   exposed-modules:        HaskellWorks.Codec.Sar
+                          HaskellWorks.Codec.Sar.Internal.ByteString.Lazy
                           HaskellWorks.Codec.Sar.Internal.Get
                           HaskellWorks.Codec.Sar.Internal.Pack
                           HaskellWorks.Codec.Sar.Internal.RawEntry
