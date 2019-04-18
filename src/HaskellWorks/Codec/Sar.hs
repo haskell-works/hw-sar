@@ -10,6 +10,7 @@ module HaskellWorks.Codec.Sar
 
 import Control.Monad
 import Data.Word
+import HaskellWorks.Codec.Sar.Internal.Entry
 import HaskellWorks.Codec.Sar.Internal.Pack
 import HaskellWorks.Codec.Sar.Internal.RawEntry
 
@@ -24,9 +25,6 @@ import qualified HaskellWorks.Codec.Sar.Internal.Get             as BG
 import qualified System.Directory                                as IO
 import qualified System.Directory.Internal                       as IO
 import qualified System.IO                                       as IO
-
-data Entry = Entry FilePath LBS.ByteString
-  deriving (Eq, Show)
 
 entriesToRawEntries :: Int -> [Entry] -> [RawEntry]
 entriesToRawEntries n es = go es []

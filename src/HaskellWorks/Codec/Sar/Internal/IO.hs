@@ -4,7 +4,9 @@ module HaskellWorks.Codec.Sar.Internal.IO
   ) where
 
 import Control.Monad
+import HaskellWorks.Codec.Sar.Internal.Entry
 
+import qualified Data.ByteString.Lazy      as LBS
 import qualified System.Directory          as IO
 import qualified System.Directory.Internal as IO
 import qualified System.IO                 as IO
@@ -31,3 +33,8 @@ paths' filePath = do
   where prependParent fp e = if fp == "."
           then e
           else fp ++ "/" ++ e
+
+readEntry :: FilePath -> IO Entry
+readEntry filePath = do
+  lbs <- LBS.readFile filePath
+  return (Entry filePath lbs)
