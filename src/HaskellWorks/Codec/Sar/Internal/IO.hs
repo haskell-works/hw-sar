@@ -5,6 +5,7 @@ module HaskellWorks.Codec.Sar.Internal.IO
 
 import Control.Monad
 import HaskellWorks.Codec.Sar.Internal.Entry
+import System.FilePath.Posix
 
 import qualified Data.ByteString.Lazy      as LBS
 import qualified System.Directory          as IO
@@ -38,3 +39,10 @@ readEntry :: FilePath -> IO Entry
 readEntry filePath = do
   lbs <- LBS.readFile filePath
   return (Entry filePath lbs)
+
+writeEntry :: FilePath -> Entry -> IO ()
+writeEntry filePath (Entry filename lbs) = do
+  let fullFilePath = filePath </> filename
+  let dn = takeDirectory fullFilePath
+  IO.createDirectoryIfMissing True dn
+  LBS.writeFile filePath lbs
