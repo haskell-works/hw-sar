@@ -1,16 +1,18 @@
-cabal-version:        2.4
-name:                 hw-sar
-version:              0.0.0.1
-synopsis:             Library for creating and extracting tar archives
-description:          Library for creating and extracting tar archives.
-homepage:             https://github.com/haskell-works/hw-sar
-license:              BSD-3-Clause
-license-file:         LICENSE
-author:               John Ky
-maintainer:           newhoggy@gmail.com
-copyright:            2016 - 2019 John Ky
-category:             Codec
-extra-source-files:   CHANGELOG.md
+cabal-version: 2.4
+
+name:                   hw-sar
+version:                0.0.0.1
+synopsis:               Library for creating and extracting tar archives
+description:            Library for creating and extracting tar archives.
+homepage:               https://github.com/haskell-works/hw-sar
+license:                BSD-3-Clause
+license-file:           LICENSE
+author:                 John Ky
+maintainer:             newhoggy@gmail.com
+copyright:              2016 - 2019 John Ky
+category:               Codec
+tested-with:            GHC == 8.10.1, GHC == 8.8.3, GHC == 8.6.5, GHC == 8.4.4
+extra-source-files:     CHANGELOG.md
 
 common base                 { build-depends: base                 >= 4.7        && < 5      }
 
